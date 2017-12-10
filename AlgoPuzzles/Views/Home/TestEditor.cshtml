@@ -1,0 +1,57 @@
+﻿@using Newtonsoft.Json
+@using System.Text
+@using System.Collections
+@using System.Reflection
+@using System.ComponentModel.DataAnnotations
+
+@functions {
+    public string ReduceCollection (ICollection c)
+    {
+        var b = new StringBuilder();
+        foreach (var item in c)
+        {            
+            if (b.Length > 0)
+                b.Append("; ");
+            b.Append((item ?? string.Empty).ToString());
+        }
+
+        return b.ToString();
+    }
+}
+
+<div>
+    @foreach (var prop in Model.GetType().GetProperties(BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance))
+    {
+        if (prop.GetIndexParameters().GetLength(0) > 0) { continue; }
+
+        var attrDisplay = (DisplayAttribute)Attribute.GetCustomAttribute(prop, typeof(DisplayAttribute));
+        var name = attrDisplay == null ? prop.Name : attrDisplay.Name;
+        var rawVal = prop.GetValue(Model);
+        string value;
+        if (rawVal == null)
+        {
+            value = string.Empty;
+        }
+        else if (rawVal is ICollection)
+        {
+            value = ReduceCollection(rawVal as ICollection);
+        }
+        else if (rawVal is Algorithms.ListNode)
+        {
+            value = rawVal.ToString();
+        }
+        else
+        {
+            value = rawVal.ToString();
+
+        }
+
+        <div class="form-group">
+            <label for="@(prop.Name)" class="control-label small">@name</label>
+            <input type="text" class="form-control" name="@(prop.Name)" id="@(prop.Name)" value="@(value)" />
+        </div>
+    }
+</div>
+
+@*@<pre>@JsonConvert.SerializeObject(Model)</pre>*@
+

@@ -1,0 +1,13 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "dependencies": {
+    "jquery": "v3.2.1",
+    "bootstrap": "v3.3.7",
+    "jquery-validation-unobtrusive": "v3.2.6",
+    "jquery-ui": "1.12.1",
+    "jquery-validation": "1.16.0",
+    "jquery.cookie": "jquery-cookie#v1.4.1",
+    "jquery-ui-vertical-tabs": "0.1.1"
+  }
+}

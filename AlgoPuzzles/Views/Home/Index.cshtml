@@ -1,0 +1,29 @@
+﻿@model AlgoPuzzles.Models.Registry
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $('#tabs').tabs({
+            orientation: "vertical",
+            active: $.cookie('currenttab'),
+            activate: function(ev, ui) {
+                $.cookie('currenttab', ui.newTab.index(), {expires: 30})
+            }
+        }).addClass('ui-tabs-vertical ui-helper-clearfix');        
+    </script>
+}
+
+<div class="row">
+    <div id="tabs" class="col-xs-12">
+        <ul>
+            @{ var index = 0; }
+            @foreach (var algo in Model.Algorithms)
+            {
+                <li><a asp-controller="" asp-action="Algo" asp-route-index="@(index++)"><span>@algo.Name</span></a></li>
+            }
+        </ul>        
+    </div>
+</div>

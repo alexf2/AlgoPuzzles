@@ -1,0 +1,60 @@
+﻿@model AlgoPuzzles.Models.Registry
+
+@{
+    var algo = Model.Selected;
+    var testCount = 1;
+}
+
+<article>
+    <div class="panel-group">
+        <div class="row">
+            <div class="col-xs-12">@algo.Description</div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">&nbsp;</div>
+        </div>
+
+        @foreach (var testCase in algo.TestSet)
+        {
+            var formId = $"form{Model.Index}_{testCount}";
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong>Test set @(testCount++)</strong></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-5 col-border">                        
+                        <form id="@(formId)" asp-action="Execute" asp-controller="" asp-antiforgery="true" asp-route-algoIndex="@(Model.Index)" method="post">
+                            @Html.Partial("TestEditor", testCase)
+                            <button type="submit" class="btn btn-primary btn-xs">Run</button>
+                        </form>
+                    </div>
+                    <div class="col-xs-7 col-border">
+                        Result:
+                    </div>
+                </div>                
+            </div>
+        </div>
+        }
+    </div>
+</article>
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+*@

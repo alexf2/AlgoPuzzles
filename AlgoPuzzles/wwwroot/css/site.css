@@ -1,0 +1,48 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 10px;
+}
+
+
+
+.ui-tabs-vertical .ui-tabs-nav {
+    float: left;
+    width: 15em;    
+}
+.ui-tabs-vertical .ui-tabs-nav li {    
+    position: relative;
+    right: -2px;    
+}
+.ui-tabs-vertical .ui-tabs-nav li a {    
+    outline: none;
+}
+.ui-tabs-vertical .ui-tabs-nav li a:hover {
+    cursor: pointer;
+}
+.ui-tabs-vertical .ui-tabs-nav li.ui-state-active {    
+    box-sizing: content-box;
+    outline: none;
+}
+
+.ui-tabs-vertical .ui-tabs-panel {
+    width: -webkit-calc(100% - 16em);
+    width: calc(100% - 16em);
+    box-sizing: border-box;
+}
+
+.col-border:not(:last-child) {
+    border-right: 1px solid #d7d7d7;
+}
+
+.col-border + .col-border {
+    border-left: 1px solid #d7d7d7;
+    margin-left: -1px;
+}
