@@ -12,6 +12,8 @@ using StructureMap;
 
 using Algorithms;
 using System.Threading;
+using WebApiHelpers;
+using CM = System.ComponentModel;
 
 namespace AlgoPuzzles
 {
@@ -44,6 +46,7 @@ namespace AlgoPuzzles
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            RegisterTypeConverters();
             RegisterApplicationComponents(app);            
 
             if (env.IsDevelopment())
@@ -58,12 +61,19 @@ namespace AlgoPuzzles
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            WebApiErrorHandlingMiddleware.UseWebApiJsonErrorResponse(app)       
+                .UseMvc(routes =>
+                {
+                    routes.MapRoute(
+                        name: "default",
+                        template: "{controller=Home}/{action=Index}/{id?}");
+                });
+        }
+
+        private void RegisterTypeConverters()
+        {
+            CM.TypeDescriptor.AddAttributes(typeof(int[]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<int>)));
+            CM.TypeDescriptor.AddAttributes(typeof(ListNode<int>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedSingleListConvertor<int>)));
         }
 
         private void RegisterApplicationComponents(IApplicationBuilder app)

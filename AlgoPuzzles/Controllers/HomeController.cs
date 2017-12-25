@@ -32,14 +32,27 @@ namespace AlgoPuzzles.Controllers
         }
 
         [HttpPost]
-        public IActionResult Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromRoute] int algoIndex)
+        public async Task<IActionResult> Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromQuery] int algoIndex)
         {
-            return Json(testCase);
+            var algo = _algos[ algoIndex ];
+
+            //System.Threading.Thread.Sleep(500);
+            
+            var sample = Activator.CreateInstance(algo.ParamsType);
+            bool status = await TryUpdateModelAsync(sample, algo.ParamsType, string.Empty);
+            if (!status)
+                throw new Exception($"Unable to get model {algo.ParamsType.Name} from the form for {algo.Name}.\r\n{ModelErrors}");
+            var res = await algo.Execute(sample);
+
+            //return Json(res);
+            return PartialView(res);
         }
 
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        string ModelErrors => string.Join("; ", ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage));
     }
 }

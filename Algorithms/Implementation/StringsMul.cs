@@ -12,10 +12,12 @@ namespace Algorithms.Implementation
     {
         public sealed class Args
         {
-            [Display(Name = "Substring to search")]
+            [Display(Name = "Integer 1")]
+            [Required]
             public string S1 { get; set; }
 
-            [Display(Name = "Substring to search")]
+            [Display(Name = "Integer 2")]
+            [Required]
             public string S2 { get; set; }
         }
 

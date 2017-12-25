@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 using Algorithms;
 
@@ -8,14 +9,25 @@ namespace Algorithms.Implementation
 {     
     public sealed class MergeSortedArrays : AlgoBase<MergeSortedArrays.Args>
     {
+        static readonly int[] EmptyArray = new int[] { };
+
         public sealed class Args
         {
-            [Display(Name = "First Array")]
-            public int[] A1 { get; set; }
+            [Display(Name = "First Array")]            
+            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            public int[] A1 { get; set; } = EmptyArray;
 
-            [Display(Name = "Second Array")]
-            public int[] A2 { get; set; }
+            [Display(Name = "Second Array")]            
+            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            public int[] A2 { get; set; } = EmptyArray;
         }
+
+        public sealed class Result
+        {
+            [UIHint("Collection")]
+            public int[] MergedArray { get; set; }
+        }
+
         public override string Name { get => "Merge Sorted Arrays"; }
 
         public override string Description { get => @"Given two sorted arrays of int type. 
@@ -23,7 +35,7 @@ namespace Algorithms.Implementation
 
         protected override dynamic ExecuteCore(Args input)
         {            
-            return new { MergedArray = TestMergedArrays.MergeArrays(input.A1, input.A2) };            
+            return new Result() { MergedArray = TestMergedArrays.MergeArrays(input.A1, input.A2) };            
         }
 
         public override IEnumerable<Args> TestSet
@@ -35,7 +47,7 @@ namespace Algorithms.Implementation
                 new Args(){A1 = new int[]{1,12,13}, A2 = new int[]{0, 5}},
                 new Args(){A1 = new []{5,6,7,8,9,10}, A2 = new int[]{8,9,10,11,15}},
                 new Args(){A1 = new []{-1, 0, 2, 10, 15, 18, 20}, A2 = new int[]{9, 10, 11, 12, 14, 16, 19, 22}},
-                new Args(){A1 = null, A2 = new []{1,10,12,15}},
+                new Args(){A1 = new []{10,12}, A2 = new []{1,10,12,15}},
             };
         }        
     }

@@ -11,6 +11,7 @@ namespace Algorithms.Implementation
         public sealed class Args
         {
             [Display(Name = "Matrix size")]
+            [Required]
             public int N { get; set; }
         }
 

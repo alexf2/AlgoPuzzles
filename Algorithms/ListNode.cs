@@ -1,43 +1,43 @@
 ﻿using System;
-using System.Linq;
-using System.Text;
-
+using System.Collections;
 
 namespace Algorithms
-{
-    public static class ListBuilder {
-        public static ListNode<T> Build<T>(string list)
+{    
+    public class ListNode<T>: ICollection
+    {
+        public sealed class ListEnumerator : IEnumerator
         {
-            if (list == null)
-                return null;
+            readonly ListNode<T> _root;
+            ListNode<T> _current;
 
-            ListNode<T> prevInstance = null, head = null;
-            foreach (var v in list.Split(';').Select(it => it.Trim()))
+            public ListEnumerator(ListNode<T> root)
             {
-                T value;
-                if (v == string.Empty)
-                    value = default(T);
-                else
-                    value = (T)Convert.ChangeType(v, typeof(T));
-
-                if (prevInstance == null)
-                {
-                    head = prevInstance = new ListNode<T>() { Value = value };
-                    prevInstance.Value = value;
-                }
-                else
-                {
-                    prevInstance.Next = new ListNode<T>() { Value = value };
-                    prevInstance = prevInstance.Next;
-                }
+                _root = root;
             }
 
-            return head;
-        }
-    }
+            object IEnumerator.Current => _current.Value;
 
-    public class ListNode<T>
-    {
+            bool IEnumerator.MoveNext()
+            {
+                if (_current == null)
+                {
+                    _current = _root;
+                    return true;
+                }
+                if (_current.Next != null)
+                {
+                    _current = _current.Next;
+                    return true;
+                }
+                return false;
+            }
+
+            void IEnumerator.Reset()
+            {
+                _current = _root;
+            }
+        }
+
         public ListNode<T> Next;
         public T Value;
 
@@ -45,28 +45,45 @@ namespace Algorithms
         {
         }
 
+        int ICollection.Count
+        {
+            get
+            {
+                var curr = this;
+                var cnt = 0;
+                do
+                {
+                    cnt++;
+                } while ((curr = curr.Next) != null);
+                return cnt;
+            }
+        }
+
+
+        bool ICollection.IsSynchronized => false;
+
+        object ICollection.SyncRoot => null;
+
+        void ICollection.CopyTo(Array array, int index)
+        {
+            var curr = this;
+            for (var i = index; i < array.Length; ++i, curr = curr.Next)
+                array.SetValue(curr.Value, i);
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return new ListEnumerator(this);
+        }
+
         public ListNode<T> Add(T val)
         {
             Next = new ListNode<T>() { Value = val };
             return Next;
         }
-
-        public override string ToString()
-        {
-            var curr = this;
-            var b = new StringBuilder();
-            while (curr != null)
-            {
-                if (b.Length > 0)
-                    b.Append("; ");
-                b.Append(object.Equals(curr.Value, default(T)) ? string.Empty:curr.Value.ToString() );
-
-                curr = curr.Next;
-            }
-            return b.ToString();
-        }
     }
 
+    
     public sealed class ListNode: ListNode<int>
     {
     }

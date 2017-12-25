@@ -13,9 +13,9 @@ namespace Algorithms
 
         protected abstract dynamic ExecuteCore(T input);
 
-        public async Task<dynamic> Execute(T input)
+        public Task<dynamic> Execute(T input)
         {
-            return await new Task<dynamic>(() => {
+            return Task.Run(() => {
                 return ExecuteCore(input);
             });
         }
@@ -26,6 +26,7 @@ namespace Algorithms
         }
 
         Task<dynamic> IAlgo.Execute(object input) => Execute((T)input);
+        
         IEnumerable IAlgo.TestSet { get => TestSet; }
         Type IAlgo.ParamsType { get => typeof(T); }
     }

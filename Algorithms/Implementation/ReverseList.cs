@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 using Algorithms;
@@ -10,17 +11,24 @@ namespace Algorithms.Implementation
         public sealed class Args
         {
             [Display(Name = "Original single linked List")]
-            public ListNode List { get; set; }
+            [TypeConverter(typeof(SemicolonSeparatedSingleListConvertor<int>))]            
+            public ListNode<int> List { get; set; }
+        }
+
+        public sealed class Result
+        {
+            [UIHint("Collection")]
+            public ListNode<int> ReversedList { get; set; }
         }
 
         public override string Name { get => "Reversing List"; }
 
         public override string Description { get => @"Given a Single-linked list on numbers. 
  Reverse the list without using extra storage."; }
-
+        
         protected override dynamic ExecuteCore(Args input)
         {            
-            return new { ReversedList = TestReverseList.Reverse(input.List) };            
+            return new Result() { ReversedList = TestReverseList.Reverse(input.List) };            
         }
 
         public override IEnumerable<Args> TestSet
@@ -33,20 +41,20 @@ namespace Algorithms.Implementation
             };
         }
 
-        ListNode GetList1()
+        ListNode<int> GetList1()
         {
-            var lst = new ListNode() { Value = 10 };
+            var lst = new ListNode<int>() { Value = 10 };
             lst.Add(11).Add(9).Add(0).Add(7).Add(5).Add(22);
             return lst;
         }
-        ListNode GetList2()
+        ListNode<int> GetList2()
         {
-            var lst = new ListNode() { Value = 2 };            
+            var lst = new ListNode<int>() { Value = 2 };            
             return lst;
         }
-        ListNode GetList3()
+        ListNode<int> GetList3()
         {
-            var lst = new ListNode() { Value = 2 };
+            var lst = new ListNode<int>() { Value = 2 };
             lst.Add(3);
             return lst;
         }        
@@ -54,15 +62,15 @@ namespace Algorithms.Implementation
 
     static class TestReverseList
     {
-        public static ListNode Reverse (ListNode lst)
+        public static ListNode<int> Reverse (ListNode<int> lst)
         {
             if (lst == null || lst.Next == null)
                 return lst;
 
-            ListNode current = lst, prev = null;
+            ListNode<int> current = lst, prev = null;
             while (current != null)
             {
-                var next = (ListNode)current.Next;
+                var next = (ListNode<int>)current.Next;
                 current.Next = prev;
                 prev = current;
                 current = next;

@@ -11,6 +11,9 @@
     padding-top: 10px;
 }
 
+.close {
+    outline: none;
+}
 
 
 .ui-tabs-vertical .ui-tabs-nav {
