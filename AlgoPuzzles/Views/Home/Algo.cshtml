@@ -8,7 +8,9 @@
 <article>
     <div class="panel-group">
         <div class="row">
-            <div class="col-xs-12">@algo.Description</div>
+            <div class="col-xs-12">
+                @Html.Raw(algo.Description)
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-12">&nbsp;</div>
@@ -29,7 +31,7 @@
                         </form>
                     </div>
                     <div class="col-xs-7 col-border">
-                        Result:<br/>&nbsp;
+                        <strong>Result:</strong><br/><br />
                         <div class="alert alert-danger" style="display:none"><button type="button" class="close" aria-hidden="true">&times;</button><div class="msg-area">&nbsp;</div></div>
                         <div class="result-area">&nbsp;</div>
                     </div>

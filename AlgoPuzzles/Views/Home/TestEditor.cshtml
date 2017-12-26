@@ -20,11 +20,12 @@
         }
         else
         {
-            var convertor = TypeDescriptor.CreateProperty(Model.GetType(), prop.Name, prop.PropertyType).Converter;
+            //var convertor = TypeDescriptor.CreateProperty(Model.GetType(), prop.Name, prop.PropertyType).Converter;
+            var convertor = TypeDescriptor.GetConverter(prop.PropertyType);
             if (convertor?.CanConvertTo(typeof(string)) ?? false)
             {
                 value = convertor.ConvertToString(rawVal);
-            }            
+            }
             else
             {
                 value = rawVal.ToString();

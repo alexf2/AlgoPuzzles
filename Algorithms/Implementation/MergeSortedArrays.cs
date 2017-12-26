@@ -13,20 +13,13 @@ namespace Algorithms.Implementation
 
         public sealed class Args
         {
-            [Display(Name = "First Array")]            
-            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            [Display(Name = "First Array")]                        
             public int[] A1 { get; set; } = EmptyArray;
 
-            [Display(Name = "Second Array")]            
-            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            [Display(Name = "Second Array")]                        
             public int[] A2 { get; set; } = EmptyArray;
         }
-
-        public sealed class Result
-        {
-            [UIHint("Collection")]
-            public int[] MergedArray { get; set; }
-        }
+        
 
         public override string Name { get => "Merge Sorted Arrays"; }
 
@@ -35,7 +28,7 @@ namespace Algorithms.Implementation
 
         protected override dynamic ExecuteCore(Args input)
         {            
-            return new Result() { MergedArray = TestMergedArrays.MergeArrays(input.A1, input.A2) };            
+            return new { MergedArray = TestMergedArrays.MergeArrays(input.A1, input.A2) };            
         }
 
         public override IEnumerable<Args> TestSet

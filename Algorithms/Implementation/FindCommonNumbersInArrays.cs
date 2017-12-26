@@ -15,23 +15,15 @@ namespace Algorithms.Implementation
         public sealed class Args
         {
             [Display(Name = "First Array")]
-            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            //[TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
             public int[] A1 { get; set; } = EmptyArray;
 
-            [Display(Name = "Second Array")]                        
-            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            [Display(Name = "Second Array")]                                    
             public int[] A2 { get; set; } = EmptyArray;
 
-            [Display(Name = "Third Array")]
-            [TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            [Display(Name = "Third Array")]            
             public int[] A3 { get; set; } = EmptyArray;
-        }
-
-        public sealed class Result
-        {
-            [UIHint("Collection")]
-            public int[] ReversedList { get; set; }
-        }
+        }        
 
         public override string Name { get => "Common array numbers"; }
 
@@ -40,7 +32,7 @@ namespace Algorithms.Implementation
 
         protected override dynamic ExecuteCore(Args input)
         {            
-            return new Result() { ReversedList = TestCommonNumbersThree.FindCommonNumbers(input.A1, input.A2, input.A3) };
+            return new { CommonNumbers = TestCommonNumbersThree.FindCommonNumbers(input.A1, input.A2, input.A3) };
         }
 
         public override IEnumerable<Args> TestSet { get => new [] {

@@ -49,3 +49,26 @@
     border-left: 1px solid #d7d7d7;
     margin-left: -1px;
 }
+
+
+.table-nonfluid {
+    width: auto;
+}
+.display-label {
+    font-weight: bold;
+    font-size: 85%;
+    float: left;
+    clear: left;
+}
+.display-label::after {
+    content: ":  ";
+    font-weight: bold;
+    white-space: pre;
+}
+.display-field {
+    float: left;    
+}
+.result-area {
+    padding-left: 12px;
+}
+

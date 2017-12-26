@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +12,8 @@ using Algorithms;
 using System.Threading;
 using WebApiHelpers;
 using CM = System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using AlgoPuzzles.Helpers;
 
 namespace AlgoPuzzles
 {
@@ -26,7 +26,7 @@ namespace AlgoPuzzles
         private object GetInstance(Type type) => scopeProvider.Value.GetInstance(type);
 
         public Startup(IConfiguration configuration)
-        {
+        {            
             Configuration = configuration;
         }
 
@@ -34,13 +34,15 @@ namespace AlgoPuzzles
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {            
-            services.AddMvc();
+        {
+            services.AddMvc()
+                .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new UiHintMetadataProvider()));
 
+
+            /* Structure map */
             services.AddRequestScopingMiddleware(() => scopeProvider.Value = container.GetNestedContainer());
             services.AddCustomControllerActivation(GetInstance);
             services.AddCustomViewComponentActivation(GetInstance);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,8 +74,12 @@ namespace AlgoPuzzles
 
         private void RegisterTypeConverters()
         {
+            //needs to use TypeDescriptor.GetConverter and TypeDescriptor.CreateProperty
             CM.TypeDescriptor.AddAttributes(typeof(int[]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<int>)));
             CM.TypeDescriptor.AddAttributes(typeof(ListNode<int>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedSingleListConvertor<int>)));
+
+            //to make UiHintMetadataProvider working
+            CM.TypeDescriptor.AddAttributes(typeof(int[,]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<int>)));
         }
 
         private void RegisterApplicationComponents(IApplicationBuilder app)

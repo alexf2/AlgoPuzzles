@@ -17,7 +17,7 @@ namespace Algorithms.Implementation
 
         public override string Name { get => "Spiral matrix"; }
 
-        public override string Description { get => @"Given matrix szie N. 
+        public override string Description { get => @"Given matrix szie N.
  There is a need to create square matrix, filled by increasing numbers from 1 to some K in spiral way from the center N/2."; }
 
         protected override dynamic ExecuteCore(Args input)

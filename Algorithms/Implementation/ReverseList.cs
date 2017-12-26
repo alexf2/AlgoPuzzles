@@ -10,16 +10,10 @@ namespace Algorithms.Implementation
     {
         public sealed class Args
         {
-            [Display(Name = "Original single linked List")]
-            [TypeConverter(typeof(SemicolonSeparatedSingleListConvertor<int>))]            
+            [Display(Name = "Original single linked List")]                     
             public ListNode<int> List { get; set; }
         }
-
-        public sealed class Result
-        {
-            [UIHint("Collection")]
-            public ListNode<int> ReversedList { get; set; }
-        }
+        
 
         public override string Name { get => "Reversing List"; }
 
@@ -28,7 +22,7 @@ namespace Algorithms.Implementation
         
         protected override dynamic ExecuteCore(Args input)
         {            
-            return new Result() { ReversedList = TestReverseList.Reverse(input.List) };            
+            return new { ReversedList = TestReverseList.Reverse(input.List) };            
         }
 
         public override IEnumerable<Args> TestSet
