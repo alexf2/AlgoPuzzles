@@ -8,9 +8,11 @@ using AlgoPuzzles.Models;
 using Algorithms;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Http;
+using AlgoPuzzles.Helpers;
+
 
 namespace AlgoPuzzles.Controllers
-{
+{    
     public class HomeController : Controller
     {
         readonly IAlgo[] _algos;
@@ -34,17 +36,18 @@ namespace AlgoPuzzles.Controllers
         [HttpPost]
         public async Task<IActionResult> Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromQuery] int algoIndex)
         {
-            var algo = _algos[ algoIndex ];
-
-            //System.Threading.Thread.Sleep(500);
+            var algo = _algos[ algoIndex ];            
             
             var sample = Activator.CreateInstance(algo.ParamsType);
             bool status = await TryUpdateModelAsync(sample, algo.ParamsType, string.Empty);
             if (!status)
                 throw new Exception($"Unable to get model {algo.ParamsType.Name} from the form for {algo.Name}.\r\n{ModelErrors}");
-            var res = await algo.Execute(sample);
+            
+            dynamic res;
+            using (new Timing(this.ViewBag))
+                res = await algo.Execute(sample);
 
-            //return Json(res);
+
             return PartialView(res);
         }
 

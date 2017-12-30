@@ -10,7 +10,9 @@
     //Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DisplayMetadataProviderContext
 *@
 
+@using System.Globalization
 
-<div>
+<div>    
+    <div class="timings">@ViewBag.Duration.ToString(@"m\:s\:fffffff", CultureInfo.InvariantCulture) ms</div>
     @Html.DisplayForModel()
 </div>
