@@ -24,7 +24,8 @@ namespace Algorithms.Implementation
         public override string Name { get => "Merge Sorted Arrays"; }
 
         public override string Description { get => @"Given two sorted arrays of int type. 
- There should be returned a merged array without any duplication. The solution should be optimal: no additional sorting or using hash maps"; }
+ There should be returned a merged sorted array without any duplication. The solution should be optimal: no additional sorting or using hash maps.
+<br/><pre>Example: [11; 15; 17; 20; 21], [-1; 9; 12; 19; 20; 21; 22] --> [-1; 9; 11; 12; 15; 17; 19; 20; 21; 22]</pre>"; }
 
         protected override dynamic ExecuteCore(Args input)
         {            
@@ -42,7 +43,9 @@ namespace Algorithms.Implementation
                 new Args(){A1 = new []{-1, 0, 2, 10, 15, 18, 20}, A2 = new int[]{9, 10, 11, 12, 14, 16, 19, 22}},
                 new Args(){A1 = new []{10,12}, A2 = new []{1,10,12,15}},
             };
-        }        
+        }
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class TestMergedArrays

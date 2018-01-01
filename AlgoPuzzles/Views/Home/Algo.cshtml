@@ -7,7 +7,7 @@
 
 <article>
     <div class="panel-group">
-        <div class="row">
+        <div class="row header-row">
             <div class="col-xs-12">
                 @Html.Raw(algo.Description)
             </div>
@@ -20,26 +20,26 @@
         {
             var formId = $"form{Model.Index}_{testCount}";
 
-        <div class="panel panel-default">
-            <div class="panel-heading"><strong>Test set @(testCount++)</strong></div>
-            <div class="panel-body">
+            <div class="panel panel-default">
+                <div class="panel-heading"><strong>Test set @(testCount++)</strong></div>
+                <div class="panel-body">
                 
-                <div class="row row-item flex-container">
-                    <div class="col-xs-12 col-sm-5 col-border">
-                        <form id="@(formId)" asp-action="Execute" asp-controller="" asp-antiforgery="true" asp-route-algoIndex="@(Model.Index)" method="post">
-                            @Html.Partial("TestEditor", testCase)
-                            <button type="submit" class="btn btn-primary btn-xs">Run</button>
-                        </form>
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-border">
-                        <strong>Result:</strong>
-                        <div class="alert alert-danger" style="display:none"><button type="button" class="close" aria-hidden="true">&times;</button><div class="msg-area">&nbsp;</div></div>
-                        <div class="result-area">&nbsp;</div>
-                    </div>
-                </div>                
+                    <div class="row row-item flex-container">
+                        <div class="col-xs-12 col-sm-5 col-border">
+                            <form id="@(formId)" asp-action="Execute" asp-controller="" asp-antiforgery="true" asp-route-algoIndex="@(Model.Index)" method="post">
+                                @Html.Partial("TestEditor", testCase)
+                                <button type="submit" class="btn btn-primary btn-xs">Run</button>
+                            </form>
+                        </div>
+                        <div class="col-xs-12 col-sm-7 col-border">
+                            <strong>Result:</strong>
+                            <div class="alert alert-danger" style="display:none"><button type="button" class="close" aria-hidden="true">&times;</button><div class="msg-area">&nbsp;</div></div>
+                            <div class="result-area">&nbsp;</div>
+                        </div>
+                    </div>                
 
+                </div>
             </div>
-        </div>
         }
     </div>
 </article>

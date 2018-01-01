@@ -86,16 +86,15 @@ namespace AlgoPuzzles
         {
             container.Configure(c =>
             {
-
                 // Register application services
-                //c.For<IUserService>().Use<AspNetUserService>().ContainerScoped();
+                c.For<IAlgoManager>().Use<AlgoManager>().ContainerScoped();
                 
                 c.Scan(scanner => {
                     scanner.AssemblyContainingType<IAlgo>();
                     //scanner.ConnectImplementationsToTypesClosing(typeof(IAlgo)).OnAddedPluginTypes(cpt => cpt.ContainerScoped());
                     //becams transient
                     //For deeper customization use a custom Convention: https://stackoverflow.com/questions/28896117/registering-types-with-structuremap-via-scan-method
-                    scanner.AddAllTypesOf(typeof(IAlgo)); 
+                    scanner.AddAllTypesOf<IAlgo>();
                 });
 
                 

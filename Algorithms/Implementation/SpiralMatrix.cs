@@ -36,7 +36,9 @@ namespace Algorithms.Implementation
                 new Args(){N=5},
                 new Args(){N=11}
             };
-        }        
+        }
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class MatrixSpiralFilling

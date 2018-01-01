@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections;
 using System.Threading.Tasks;
@@ -29,5 +30,10 @@ namespace Algorithms
         
         IEnumerable IAlgo.TestSet { get => TestSet; }
         Type IAlgo.ParamsType { get => typeof(T); }
+
+        public abstract string FileName { get; }
+        protected string GetFileName([System.Runtime.CompilerServices.CallerFilePath] string fileName = "") {
+            return Path.GetFileName(fileName);
+        }
     }
 }

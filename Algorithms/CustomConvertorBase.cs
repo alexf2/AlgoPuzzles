@@ -9,7 +9,7 @@ namespace Algorithms
 {
     public abstract class CustomConvertorBase<T> : TypeConverter
     {
-        protected const string Separator = "; ";
+        protected readonly char[] Separator = {',', ';'};
 
         protected readonly TypeConverter _typeConverter;
 
@@ -44,7 +44,7 @@ namespace Algorithms
                 if (string.IsNullOrEmpty(str))
                     return ToCollection(new T[] { });
 
-                var arr = ((string)value).Split(';', StringSplitOptions.RemoveEmptyEntries);
+                var arr = ((string)value).Split(Separator, StringSplitOptions.RemoveEmptyEntries);
                 if (arr.Length == 0)
                     return ToCollection(new T[] { });
 
@@ -74,7 +74,7 @@ namespace Algorithms
                     foreach (var item in (value as ICollection))
                     {
                         if (b.Length > 0)
-                            b.Append(Separator);
+                            b.Append(Separator[0]);
                         b.Append(_typeConverter.ConvertToInvariantString(item));
                     }
 

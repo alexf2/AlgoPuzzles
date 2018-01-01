@@ -12,6 +12,7 @@ namespace Algorithms
         Task<dynamic> Execute(object input);
         IEnumerable TestSet { get; }
         Type ParamsType { get; }
+        string FileName { get; }
     }
     
     public interface IAlgo<T>: IAlgo

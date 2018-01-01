@@ -25,7 +25,7 @@ namespace Algorithms
                     return null;
 
                 ListNode<T> prevInstance = null, head = null;
-                foreach (var v in str.Split(';', StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()))
+                foreach (var v in str.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Select(it => it.Trim()))
                 {
                     T item;
                     if (v == string.Empty)

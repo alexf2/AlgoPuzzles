@@ -11,11 +11,11 @@
 
 <div class="row">
     <div id="tabs" class="col-xs-12">
-        <ul>
+        <ul class="tab-list">
             @{ var index = 0; }
             @foreach (var algo in Model.Algorithms)
             {
-                <li><a asp-controller="" asp-action="Algo" asp-route-index="@(index++)"><span>@algo.Name</span></a></li>
+                <li><a asp-controller="" asp-action="Algo" asp-route-index="@(index++)"><span title="@algo.Name">@algo.Name</span></a></li>
             }
         </ul>        
     </div>

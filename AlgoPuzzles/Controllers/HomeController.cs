@@ -16,11 +16,13 @@ namespace AlgoPuzzles.Controllers
     public class HomeController : Controller
     {
         readonly IAlgo[] _algos;
+        readonly IAlgoManager _mgr;
 
-        public HomeController (IAlgo[] algos)
+        public HomeController (IAlgo[] algos, IAlgoManager mgr)
         {
             _algos = algos;
             Array.Sort(_algos, (a1, a2) => StringComparer.InvariantCultureIgnoreCase.Compare(a1.Name, a2.Name));
+            _mgr = mgr;
         }
 
         public IActionResult Index()
@@ -31,6 +33,12 @@ namespace AlgoPuzzles.Controllers
         public IActionResult Algo(int index)
         {
             return PartialView(new Registry(_algos, index));
+        }
+
+        [Produces(typeof(string))]
+        public async Task<IActionResult> SourceCode (int algoIndex)
+        {
+            return Content(await _mgr.LoadCode(_algos[algoIndex]));
         }
 
         [HttpPost]

@@ -3,6 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <StartupObject>AlgoPuzzles.Program</StartupObject>
+    <AssemblyVersion>1.0.0.3</AssemblyVersion>    
+    <Version>1.0.3</Version>
+    <FileVersion>1.0.0.3</FileVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

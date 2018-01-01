@@ -15,6 +15,16 @@
     outline: none;
 }
 
+.nav-header {
+    padding-left: 4px;
+}
+.tab-list span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 .ui-tabs-vertical .ui-tabs-nav {
     float: left;
@@ -100,4 +110,10 @@
     .flex-container {
         display: flex;
     }
+}
+
+.header-row pre {
+    display: inline-flex;
+    margin-top: 6px;
+    padding: 4px 10px;
 }

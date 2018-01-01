@@ -41,7 +41,9 @@ namespace Algorithms.Implementation
                 new Args(){S1="7654", S2="18654"},
                 new Args(){S1="1176", S2="57"}                
             };
-        }        
+        }
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class SolutionStringsMul

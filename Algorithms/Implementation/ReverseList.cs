@@ -18,7 +18,7 @@ namespace Algorithms.Implementation
         public override string Name { get => "Reversing List"; }
 
         public override string Description { get => @"Given a Single-linked list on numbers. 
- Reverse the list without using extra storage."; }
+ Reverse the list without using extra storage.<br/><pre>Example: 1, 2, 3 --> 3, 2, 1</pre>"; }
         
         protected override dynamic ExecuteCore(Args input)
         {            
@@ -51,7 +51,9 @@ namespace Algorithms.Implementation
             var lst = new ListNode<int>() { Value = 2 };
             lst.Add(3);
             return lst;
-        }        
+        }
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class TestReverseList

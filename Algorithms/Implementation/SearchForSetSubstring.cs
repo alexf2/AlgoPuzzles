@@ -21,7 +21,8 @@ namespace Algorithms.Implementation
         public override string Name { get => "Search substring as a set"; }
 
         public override string Description { get => @"Given an ASCII string S1 and a substring S2 to search in. 
- Find starting index in the target string S1 of first S2 occurence regardless of the character sequence. The complixity should be close to O(N * Log(M))."; }
+ Find starting index in the target string S1 of first S2 occurence regardless of the character sequence. The complixity should be close to O(N * Log(M)).
+<br/><pre>Example: S1 = 'abc178965fdssa', S2 = '689' --> Index = 5</pre>"; }
 
         protected override dynamic ExecuteCore(Args input)
         {            
@@ -35,7 +36,9 @@ namespace Algorithms.Implementation
                 new Args(){Str = "hgtuhh23jh3hj34h3j34hj34hj", Substr = ""},
                 new Args(){Str = "hgtuhh23jh3hj34h3j34hj34hj", Substr = "hh23jh3hj"}
             };
-        }        
+        }
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class UnorderedSubstring

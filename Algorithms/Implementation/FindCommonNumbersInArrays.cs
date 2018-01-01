@@ -27,8 +27,9 @@ namespace Algorithms.Implementation
 
         public override string Name { get => "Common array numbers"; }
 
-        public override string Description { get => @"Given three int arrays. 
- There is a need to find common numbers of all the arrays."; }
+        public override string Description { get => @"Given three positive int arrays of unique numbers. 
+ There is a need to find common numbers of all the arrays.
+<br/><pre>Example: [12; 11; 15; 8], [7; 3; 11; 18; 8], [1; 2; 11; 7; 8] --> [11, 8]</pre>"; }
 
         protected override dynamic ExecuteCore(Args input)
         {            
@@ -36,10 +37,13 @@ namespace Algorithms.Implementation
         }
 
         public override IEnumerable<Args> TestSet { get => new [] {
-            new Args(){A1 = new []{1,7,4}, A2 = new []{18, 7, 22, 1}, A3 = new []{0, 1, 4, 5, 7} },
-            new Args(){A1 = new []{1,7,4}, A2 = new int[]{}, A3 = new []{0, 1, 4, 5, 7} },
-            new Args(){A1 = new []{11,12,11, 0, 7, 9, 15, 1, 10, 2}, A2 = new []{1, 12, 11, 9, 55, 88, 99}, A3 = new []{9, 1, 88, 121, 12} }
-        }; }        
+                new Args(){A1 = new []{1,7,4}, A2 = new []{18, 7, 22, 1}, A3 = new []{0, 1, 4, 5, 7} },
+                new Args(){A1 = new []{1,7,4}, A2 = new int[]{}, A3 = new []{0, 1, 4, 5, 7} },
+                new Args(){A1 = new []{11,12,11, 0, 7, 9, 15, 1, 10, 2}, A2 = new []{1, 12, 11, 9, 55, 88, 99}, A3 = new []{9, 1, 88, 121, 12} }
+            };
+        }        
+
+        public override string FileName { get => base.GetFileName(); }
     }
 
     static class TestCommonNumbersThree
