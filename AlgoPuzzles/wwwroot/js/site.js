@@ -43,9 +43,8 @@
     }
 
     var hideAlert = function ($item) {
-        var $alert = $('.alert', $item).first();
-        $alert.slideUp(700, function () {
-            //$alert.remove();
+            var $alert = $('.alert', $item).first();
+            $alert.slideUp(700, function () {
         });
     }
     var showAlert = function ($item, $tree) {
@@ -54,13 +53,29 @@
         $alert.slideDown('slow');
     }
 
+    var showCode = function ($container, codeAsString) {        
+        $container.find('#code-panel').remove();
+        var $template = $('<div class="panel panel-primary" id="code-panel">\
+            <div class="panel-heading">Source Code\
+                <button type= "button" class="close close-code" data-target="#code-panel" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><big>&times;</big></span>\
+                        </button>\
+                    </div>\
+        <div class="panel-body"><pre><code class="lang-csharp panel-inner-body">&nbsp;</code></pre></div>\
+                </div>');
+        $template.find('.panel-inner-body').text(codeAsString).each(function (i, block) {
+            hljs.highlightBlock(block);
+        });
+        $container.prepend($template);
+    }
+
     $('#tabs').tabs({
         orientation: "vertical",
         active: $.cookie('currenttab'),
         activate: function (ev, ui) {
             $.cookie('currenttab', ui.newTab.index(), { expires: 30 })
         }
-    }).addClass('ui-tabs-vertical ui-helper-clearfix').on('click', 'button[type=submit]', function (ev) {
+    })
+    .addClass('ui-tabs-vertical ui-helper-clearfix').on('click', 'button[type=submit]', function (ev) {
         var $button = $(ev.target),
             $form = $button.closest('form'),
             $item = $form.closest('.row-item'),
@@ -95,14 +110,46 @@
             .always(function () {
                 clearTimeout(timerId);
                 showLoader($resultCell, false);
-                $button.prop('disabled', false);                
+                $button.prop('disabled', false);
             });
 
 
         return false;
-    }).on('click', 'button.close', function (ev) {
-        var $item = $(ev.target).closest('.row-item');
-        hideAlert($item);
-    })
+    })    
+    .on('click', '#btn-code', function (ev) {
+        var $button = $(ev.target),
+            $rootTabContainer = $button.closest('*[data-algo-id]'),
+            action = '/home/code/' + $rootTabContainer.data('algo-id');
+        ev.stopPropagation();
+        event.preventDefault();
+        
+        //window.location.href = '/home/code/' + $rootTabContainer.data('algo-id');
+        $.get(
+            {
+                url: action,                
+                beforeSend: function () {
+                    $button.prop('disabled', true);
+                    hideAlert($rootTabContainer);
+                }
+            })
+            .done(function (data, textStatus, jqXHR) {
+                showCode($rootTabContainer, data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
+                console.log(jqXHR.responseText);
+
+                showAlert($rootTabContainer, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR.responseText)));
+            })
+            .always(function () {                
+                $button.prop('disabled', false);
+            });
+        })
+        .on('click', 'button.close', function (ev) {
+        
+            var $item = $(ev.target).closest('.row');
+            hideAlert($item);
+    });
 })(jQuery);
 

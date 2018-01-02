@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AlgoPuzzles.Models;
 using Algorithms;
-using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Http;
 using AlgoPuzzles.Helpers;
 
@@ -24,25 +22,28 @@ namespace AlgoPuzzles.Controllers
             Array.Sort(_algos, (a1, a2) => StringComparer.InvariantCultureIgnoreCase.Compare(a1.Name, a2.Name));
             _mgr = mgr;
         }
-
+        
         public IActionResult Index()
         {
             return View(new Registry(_algos));
         }
 
-        public IActionResult Algo(int index)
+        [ActionName("algorithm")]
+        public IActionResult Algo([FromRoute(Name = "id")] int algoIndex)
         {
-            return PartialView(new Registry(_algos, index));
+            return PartialView("Algo", new Registry(_algos, algoIndex));
         }
 
         [Produces(typeof(string))]
-        public async Task<IActionResult> SourceCode (int algoIndex)
-        {
+        //[HttpGet("/home/code/{algoIndex}")]
+        [ActionName("code")]
+        public async Task<IActionResult> SourceCode ([FromRoute(Name = "id")] int algoIndex)
+        {         
             return Content(await _mgr.LoadCode(_algos[algoIndex]));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromQuery] int algoIndex)
+        public async Task<IActionResult> Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromRoute(Name = "id")] int algoIndex)
         {
             var algo = _algos[ algoIndex ];            
             

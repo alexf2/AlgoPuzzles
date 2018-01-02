@@ -49,6 +49,7 @@
     width: -webkit-calc(100% - 16em);
     width: calc(100% - 16em);
     box-sizing: border-box;
+    padding-right: 0.4em; /*the panel doesn't fit width 100%, so there is some extra pad and we need to reduce*/
 }
 
 .col-border:not(:last-child) {
@@ -116,4 +117,34 @@
     display: inline-flex;
     margin-top: 6px;
     padding: 4px 10px;
+}
+
+.title-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.close-code {
+    color: #fff;
+    opacity: 0.2;
+}
+.close-code:hover {
+    color: #fff;
+    opacity: 0.8;
+}
+
+#code-panel {
+    margin-bottom: 15px;    
+}
+#code-panel pre {
+    background-color: inherit;
+    border-width: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+}
+.panel-inner-body {
+    /*max-height: 700px;
+    overflow-y: auto;*/
 }

@@ -5,7 +5,7 @@
 }
 
 @section Scripts {
-    <script type="text/javascript">
+    <script type="text/javascript">        
     </script>
 }
 
@@ -15,7 +15,7 @@
             @{ var index = 0; }
             @foreach (var algo in Model.Algorithms)
             {
-                <li><a asp-controller="" asp-action="Algo" asp-route-index="@(index++)"><span title="@algo.Name">@algo.Name</span></a></li>
+                <li><a asp-controller="" asp-action="algorithm" asp-route-id="@(index++)"><span title="@algo.Name">@algo.Name</span></a></li>
             }
         </ul>        
     </div>
