@@ -31,7 +31,7 @@ namespace Algorithms.Implementation
         protected override dynamic ExecuteCore(Args input)
         {
             var res = TestPermutations.Permute(input.Array);
-            return new { NumberOfPermutations = res.Count, Array = res };
+            return new { NumberOfPermutations = res?.Count, Array = res };
         }
 
         public override IEnumerable<Args> TestSet
