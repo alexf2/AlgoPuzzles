@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 
 using Algorithms;
-
+using System;
 
 namespace Algorithms.Implementation
 {
@@ -37,9 +37,9 @@ namespace Algorithms.Implementation
         }
 
         public override IEnumerable<Args> TestSet { get => new [] {
-                new Args(){A1 = new []{1,7,4}, A2 = new []{18, 7, 22, 1}, A3 = new []{0, 1, 4, 5, 7} },
-                new Args(){A1 = new []{1,7,4}, A2 = new int[]{}, A3 = new []{0, 1, 4, 5, 7} },
-                new Args(){A1 = new []{11,12,11, 0, 7, 9, 15, 1, 10, 2}, A2 = new []{1, 12, 11, 9, 55, 88, 99}, A3 = new []{9, 1, 88, 121, 12} }
+                new Args(){A1 = new []{1,7,4}, A2 = new []{18, 7, 22, 1}, A3 = new []{18, 1, 4, 5, 7} },
+                new Args(){A1 = new []{1,7,4}, A2 = new int[]{}, A3 = new []{2, 1, 4, 5, 7} },
+                new Args(){A1 = new []{11,12,11, 3, 7, 9, 15, 1, 10, 2}, A2 = new []{1, 12, 11, 9, 55, 88, 99}, A3 = new []{9, 1, 88, 121, 12} }
             };
         }        
 
@@ -69,6 +69,8 @@ namespace Algorithms.Implementation
                     continue;
                 for (int j = 0; j < a.Length; j++)
                 {
+                    if (a[j] < 1)
+                        throw new Exception($"Found zero or negative number: {a[j]}.");
                     int idx = a[j] % size; //в качестве хэш-функции - остаток от деления
                     if (freq[idx] == null)
                         freq[idx] = new FreqPair() { Val = a[j] };

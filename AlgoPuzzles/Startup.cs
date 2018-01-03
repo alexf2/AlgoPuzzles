@@ -77,8 +77,11 @@ namespace AlgoPuzzles
             //needs to use TypeDescriptor.GetConverter and TypeDescriptor.CreateProperty
             CM.TypeDescriptor.AddAttributes(typeof(int[]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<int>)));
             CM.TypeDescriptor.AddAttributes(typeof(string[]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<string>)));
+
             CM.TypeDescriptor.AddAttributes(typeof(IList<int>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<int>)));
             CM.TypeDescriptor.AddAttributes(typeof(IList<string>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<string>)));
+            CM.TypeDescriptor.AddAttributes(typeof(IList<IList<int>>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<IList<int>>)));
+            
             CM.TypeDescriptor.AddAttributes(typeof(ListNode<int>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedSingleListConvertor<int>)));
 
             //to make UiHintMetadataProvider working

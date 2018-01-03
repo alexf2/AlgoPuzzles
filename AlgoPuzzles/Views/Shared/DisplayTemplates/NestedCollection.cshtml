@@ -1,0 +1,23 @@
+﻿@using System.ComponentModel
+
+@{
+    if (Model != null)
+    {
+        var t = Model.GetType();
+        var itemType = t.IsArray ? t.GetElementType() : t.GetGenericArguments()[0];
+        var convertor = TypeDescriptor.GetConverter(itemType);
+
+        <ul class="list-unstyled">
+            @foreach (var item in Model)
+            {
+                <li class="list-group-item">
+                   @convertor.ConvertToString(item)
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <ul class="">&nbsp;</ul>
+    }
+}

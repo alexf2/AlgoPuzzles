@@ -2,13 +2,14 @@
 @using System.Globalization;
 @using System.ComponentModel;
 
-@functions {    
+@functions {
+}
+
+@{
+    var arr = (Array)Model;
+    var convertor = TypeDescriptor.GetConverter(arr.GetType().GetElementType());
 }
 <table class="table table-striped table-nonfluid">
-    @{
-        var arr = (Array)Model;
-        var convertor = TypeDescriptor.GetConverter(arr.GetType().GetElementType());
-    }
     <tbody>
         @for (var i = arr.GetLowerBound(0); i <= arr.GetUpperBound(0); ++i)
         {
