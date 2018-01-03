@@ -7,10 +7,9 @@
         }
     }
 
-    var responseToList = function (mime, data) {
-        var res = '', count = 0;
-        if (/application\/json/ig.test(mime)) {
-
+    var responseToList = function (mime, jqXHR) {
+        var res = '', count = 0, data = jqXHR.responseText;
+        if (/application\/json/ig.test(mime)) {            
             var obj = typeof data === 'object' ? data : JSON.parse(data);
 
             if (obj.error && obj.error.message)
@@ -32,9 +31,9 @@
                 }
             if (res === '')
                 res = '[empty]';
-        } else {
+        } else {                        
             if (typeof data === 'string' && data.length === 0)
-                res = '[empty]';
+                res = '<span>' + jqXHR.status + ': ' + jqXHR.statusText + '</span>';
             else
                 res = '<li>' + data + '</li>';
         }
@@ -105,7 +104,7 @@
                 console.log(errorThrown);
                 console.log(jqXHR.responseText);
 
-                showAlert($item, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR.responseText)));
+                showAlert($item, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR)));
             })
             .always(function () {
                 clearTimeout(timerId);
@@ -116,40 +115,40 @@
 
         return false;
     })    
-    .on('click', '#btn-code', function (ev) {
-        var $button = $(ev.target),
-            $rootTabContainer = $button.closest('*[data-algo-id]'),
-            action = '/home/code/' + $rootTabContainer.data('algo-id');
-        ev.stopPropagation();
-        event.preventDefault();
+        .on('click', '#btn-code', function (ev) {                        
+            var $button = $(ev.target),
+                $rootTabContainer = $button.closest('*[data-algo-id]'),
+                action = BASE_URL + '/home/code/' + $rootTabContainer.data('algo-id');
+            ev.stopPropagation();
+            event.preventDefault();
         
-        //window.location.href = '/home/code/' + $rootTabContainer.data('algo-id');
-        $.get(
-            {
-                url: action,                
-                beforeSend: function () {
-                    $button.prop('disabled', true);
-                    hideAlert($rootTabContainer);
-                }
-            })
-            .done(function (data, textStatus, jqXHR) {
-                showCode($rootTabContainer, data);
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-                console.log(errorThrown);
-                console.log(jqXHR.responseText);
+        
+            $.get(
+                {
+                    url: action,                
+                    beforeSend: function () {
+                        $button.prop('disabled', true);
+                        hideAlert($rootTabContainer);
+                    }
+                })
+                .done(function (data, textStatus, jqXHR) {
+                    showCode($rootTabContainer, data);
+                })
+                .fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                    console.log(errorThrown);
+                    console.log(jqXHR.responseText);
 
-                showAlert($rootTabContainer, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR.responseText)));
+                    showAlert($rootTabContainer, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR)));
+                })
+                .always(function () {                
+                    $button.prop('disabled', false);
+                });
             })
-            .always(function () {                
-                $button.prop('disabled', false);
-            });
-        })
-        .on('click', 'button.close', function (ev) {
+            .on('click', 'button.close', function (ev) {
         
-            var $item = $(ev.target).closest('.row');
-            hideAlert($item);
+                var $item = $(ev.target).closest('.row');
+                hideAlert($item);
     });
 })(jQuery);
 

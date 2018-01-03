@@ -45,7 +45,7 @@ namespace Algorithms.Implementation
             };
         }
 
-        public override string FileName { get => base.GetFileName(); }
+        public override string FileName { get => base.GetFileName(); }        
     }
 
     static class TestMergedArrays

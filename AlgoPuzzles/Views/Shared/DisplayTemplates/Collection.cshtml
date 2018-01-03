@@ -1,14 +1,17 @@
 ﻿@using System.ComponentModel
 @{
-    var convertor = TypeDescriptor.GetConverter(Model);
-    string value;
-    if (convertor?.CanConvertTo(typeof(string)) ?? false)
+    string value = null;
+    if (Model != null)
     {
-        value = convertor.ConvertToString(Model);
-    }
-    else
-    {
-        value = Model.ToString();
+        var convertor = TypeDescriptor.GetConverter(Model);
+        if (convertor?.CanConvertTo(typeof(string)) ?? false)
+        {
+            value = convertor.ConvertToString(Model);
+        }
+        else
+        {
+            value = Model.ToString();
+        }
     }
 }
 @value
