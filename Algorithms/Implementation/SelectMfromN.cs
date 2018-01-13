@@ -54,19 +54,18 @@ namespace Algorithms.Implementation
     {
         static bool NextCombination(int[] num, int n, int k)
         {
-            bool finished, changed;
-            changed = finished = false;
+            bool finished = false, changed = false;            
 
             if (k > 0)
             {
-                for (int i = k - 1; !finished && !changed; i--)
+                for (var i = k - 1; !finished && !changed; i--)
                 {
                     if (num[i] < (n - 1) - (k - 1) + i)
                     {
                         num[ i ]++;
                         if (i < k - 1)
                         {
-                            for (int j = i + 1; j < k; j++)
+                            for (var j = i + 1; j < k; j++)
                             {
                                 num[j] = num[j - 1] + 1;
                             }
@@ -82,16 +81,12 @@ namespace Algorithms.Implementation
 
         public static IEnumerable<T[]> Combinations<T>(IEnumerable<T> elements, int k)
         {
-            T[] elem = elements.ToArray();
-            int size = elem.Length;
+            var elem = elements.ToArray();
+            var size = elem.Length;
 
             if (k <= size)
-            {
-                int[] numbers = new int[k];
-                for (int i = 0; i < k; i++)
-                {
-                    numbers[i] = i;
-                }
+            {                
+                var numbers = Enumerable.Range(0, k).ToArray();
 
                 do
                 {
