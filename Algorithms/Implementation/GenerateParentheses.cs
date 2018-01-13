@@ -13,7 +13,7 @@ namespace Algorithms.Implementation
 
         public override string Name { get => "Generate Parentheses"; }
 
-        public override string Description { get => @"Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+        public override string Description { get => @"Given N pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 <br/><pre>Example: N = 3 -->
 [
   '((()))',
@@ -59,6 +59,9 @@ namespace Algorithms.Implementation
     {
         public static IList<string> GenerateParenthesis(int n)
         {
+            if (n < 1)
+                throw new System.Exception("N should be a positive number");
+
             var result = new List<string>();
             Dfs(result, string.Empty, n, n);
             return result;

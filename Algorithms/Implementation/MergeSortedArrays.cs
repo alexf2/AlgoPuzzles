@@ -52,8 +52,10 @@ namespace Algorithms.Implementation
     {
         public static int[] MergeArrays(int[] a1, int[] a2)
         {
-            if (a1 == null || a2 == null)
-                throw new Exception("Invalid data: detected null array");
+            if (a1 == null || a1.Length == 0)
+                return a2;
+            if (a2 == null || a2.Length == 0)
+                return a1;
 
             if (a1.Length == 0)
                 return a2;

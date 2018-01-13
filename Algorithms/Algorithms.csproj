@@ -38,6 +38,9 @@
     <Compile Update="Implementation\SearchForSetSubstring.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Update="Implementation\SelectMfromN.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="Implementation\SpiralMatrix.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>

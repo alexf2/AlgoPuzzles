@@ -14,5 +14,7 @@
 
 <div>    
     <div class="timings">@ViewBag.Duration.ToString(@"m\:s\:fffffff", CultureInfo.InvariantCulture) ms</div>
-    @Html.DisplayForModel()
+    <div class="result-inner-area">
+        @Html.DisplayForModel()
+    </div>
 </div>

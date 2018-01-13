@@ -15,7 +15,7 @@ namespace Algorithms.Implementation
 
         public override string Name { get => "Arabic numbers to romans"; }
 
-        public override string Description { get => @"Given an arabic number [1, 3999]. Convert to roman string.
+        public override string Description { get => @"Given an arabic number [1, 3999]. Convert to a roman string.
 <br/><pre>Example: 12 --> XII</pre>"; }
 
         protected override dynamic ExecuteCore(Args input)

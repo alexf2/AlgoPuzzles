@@ -50,11 +50,11 @@
         var $alert = $('.alert', $item).first();
         $alert.find('.msg-area').html($tree);
         $alert.slideDown('slow');
-    }
-
+    }    
+    
     var showCode = function ($container, codeAsString) {        
         $container.find('#code-panel').remove();
-        var $template = $('<div class="panel panel-primary" id="code-panel">\
+        var $template = $('<div class="panel panel-primary" id="code-panel" role="alert">\
             <div class="panel-heading">Source Code\
                 <button type= "button" class="close close-code" data-target="#code-panel" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><big>&times;</big></span>\
                         </button>\
@@ -81,8 +81,9 @@
             $resultView = $('.result-area', $item),
             $resultCell = $resultView.parent(),
             action = $form.attr('action');
+
         ev.stopPropagation();
-        event.preventDefault();
+        ev.preventDefault();
 
         var timerId = 0;
         $.post(
@@ -115,40 +116,42 @@
 
         return false;
     })    
-        .on('click', '#btn-code', function (ev) {                        
-            var $button = $(ev.target),
-                $rootTabContainer = $button.closest('*[data-algo-id]'),
-                action = BASE_URL + '/home/code/' + $rootTabContainer.data('algo-id');
-            ev.stopPropagation();
-            event.preventDefault();
-        
-        
-            $.get(
-                {
-                    url: action,                
-                    beforeSend: function () {
-                        $button.prop('disabled', true);
-                        hideAlert($rootTabContainer);
-                    }
-                })
-                .done(function (data, textStatus, jqXHR) {
-                    showCode($rootTabContainer, data);
-                })
-                .fail(function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                    console.log(jqXHR.responseText);
+    .on('click', '#btn-code', function (ev) {                        
+        var $button = $(ev.target),
+            $rootTabContainer = $button.closest('*[data-algo-id]'),
+            action = BASE_URL + '/home/code/' + $rootTabContainer.data('algo-id');
 
-                    showAlert($rootTabContainer, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR)));
-                })
-                .always(function () {                
-                    $button.prop('disabled', false);
-                });
+        ev.stopPropagation();
+        ev.preventDefault();
+                
+        $.get({
+                url: action,                
+                beforeSend: function () {
+                    $button.prop('disabled', true);
+                    hideAlert($rootTabContainer);
+                }
             })
-            .on('click', 'button.close', function (ev) {
-        
-                var $item = $(ev.target).closest('.row');
-                hideAlert($item);
+            .done(function (data, textStatus, jqXHR) {
+                showCode($rootTabContainer, data);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+                console.log(errorThrown);
+                console.log(jqXHR.responseText);
+
+                $button.prop('disabled', false);
+                showAlert($rootTabContainer, $(responseToList(jqXHR.getResponseHeader("content-type"), jqXHR)));
+            })
+            .always(function () {                
+                //$button.prop('disabled', false);
+            });
+    })
+    .on('click', '.alert > button.close', function (ev) {
+        var $item = $(ev.target).closest('.row');
+        hideAlert($item);
+    })
+    .on('click', '#code-panel button.close', function (ev) {
+        $(ev.target).closest('.panel-group').find('#btn-code').prop('disabled', false);        
     });
 })(jQuery);
 

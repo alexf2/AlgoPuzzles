@@ -5,17 +5,17 @@
 }
 
 @section Scripts {
-    <script type="text/javascript">        
+    <script type="text/javascript">
     </script>
 }
+@{ var index = 0; }
 
 <div class="row">
     <div id="tabs" class="col-xs-12">
-        <ul class="tab-list">
-            @{ var index = 0; }
+        <ul class="tab-list" role="tablist">
             @foreach (var algo in Model.Algorithms)
             {
-                <li><a asp-controller="" asp-action="algorithm" asp-route-id="@(index++)"><span title="@algo.Name">@algo.Name</span></a></li>
+                <li role="tab"><a asp-controller="" asp-action="algorithm" asp-route-id="@(index++)"><span title="@algo.Name">@algo.Name</span></a></li>
             }
         </ul>        
     </div>
