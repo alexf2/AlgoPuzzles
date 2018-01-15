@@ -2,7 +2,7 @@
   {
     "outputFileName": "wwwroot/css/site.min.css",
     "inputFiles": [
-      "wwwroot/lib/jquery-ui-vertical-tabs/vertical-tabs.css",
+      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.css",
       "wwwroot/css/site.css"
     ]
   },
@@ -10,7 +10,7 @@
     "outputFileName": "wwwroot/js/site.min.js",
     "inputFiles": [
       "wwwroot/lib/jquery.cookie/jquery.cookie.js",
-      "wwwroot/lib/jquery-ui-vertical-tabs/vertical-tabs.js",
+      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.js",
       "wwwroot/js/site.js"
     ],
     "minify": {
@@ -18,17 +18,5 @@
       "renameLocals": true
     },
     "sourceMap": true
-  },
-  {
-    "outputFileName": "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.min.css",
-    "inputFiles": [
-      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.css"
-    ]
-  },
-  {
-    "outputFileName": "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.min.js",
-    "inputFiles": [
-      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.js"
-    ]
   }
 ]
