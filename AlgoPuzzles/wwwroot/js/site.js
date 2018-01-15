@@ -74,6 +74,7 @@
             $.cookie('currenttab', ui.newTab.index(), { expires: 30 })
         }
     })
+    .show()
     .addClass('ui-tabs-vertical ui-helper-clearfix').on('click', 'button[type=submit]', function (ev) {
         var $button = $(ev.target),
             $form = $button.closest('form'),
