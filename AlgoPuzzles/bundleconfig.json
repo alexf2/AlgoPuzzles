@@ -18,5 +18,17 @@
       "renameLocals": true
     },
     "sourceMap": true
-  }  
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.min.css",
+    "inputFiles": [
+      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.min.js",
+    "inputFiles": [
+      "wwwroot/js/jquery-ui-vertical-tabs/vertical-tabs.js"
+    ]
+  }
 ]
