@@ -14,8 +14,7 @@ namespace Algorithms.Implementation
 
         public sealed class Args
         {
-            [Display(Name = "First Array")]
-            //[TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
+            [Display(Name = "First Array")]            
             public int[] A1 { get; set; } = EmptyArray;
 
             [Display(Name = "Second Array")]                                    

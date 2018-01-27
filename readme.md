@@ -1,6 +1,6 @@
 ## Algo Puzzles
 The solution represents an ASP.Net MVC Core 2 platform for demonstrating algorithms. The main distinguishing and exciting feature is that the platform has the metadata-driven UI. I.e. you do not have to use much attributes on algorithms' input and output structures or to implement views to edit input arguments and to display a result. They are automatically derived off the minimal metadata and off the data structures, which are compliant to certain requirements. Therefore, you may easily plug in new algorithms without much care about the UI. It makes it friction-less, as you only need to add your algorithm code and implement a compliant descriptor class, which provides minimal metadata and describes what input parameters algorithm needs to receive and what results it produces.
-The idea suits well for comparing the flexibility of different languages and platforms to produce generic UI with minimal hardcoding. This instance implemented in .Net/C#/Asp.Net Core 2, which is a typed language for which working with arbitrary data is a kind of not a reaction-less task. However, it turned out to be feasible to implement a metadata-driven UI without much extra coding and without overriding embedded standard Razor templates. The task solved by adding some type convertors, providers and templates for the types, needed in algorithms. Now it supports: 
+The idea suits well for comparing the flexibility of different languages and platforms to produce generic UI with minimal hardcoding. This instance implemented in .Net/C#/Asp.Net Core 2, which is a typed language for which working with arbitrary data is a kind of not a friction-less task. However, it turned out to be feasible to implement a metadata-driven UI without much extra coding and without overriding embedded standard Razor templates. The task solved by adding some type convertors, providers and templates for the types, needed in algorithms. Now it supports: 
 * array of int, string;
 * jagged array of int[], string[];
 * list of int, string;
@@ -14,7 +14,7 @@ Types are plugged in via a convertor in
 CM.TypeDescriptor.AddAttributes(typeof(int[]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<int>)));
 ```
 
-Also, Razor templates to display arrays, matrixes and lists of arrays are in [Views/Shared/DisplayTemplates](./AlgoPuzzles/Views/Shared/DisplayTemplates/). They are matched to the types by means of [UiHintMetadataProvider](./AlgoPuzzles/AlgoPuzzles/Helpers/UiHintMetadataProvider.cs), which is plugged in at Startup.cs:
+Also, Razor templates to display arrays, matrixes and lists of arrays are in [Views/Shared/DisplayTemplates](./AlgoPuzzles/Views/Shared/DisplayTemplates/). They are matched to the types by means of [UiHintMetadataProvider](./AlgoPuzzles/Helpers/UiHintMetadataProvider.cs), which is plugged in at Startup.cs:
 ```csharp
 services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new UiHintMetadataProvider())).
@@ -23,7 +23,7 @@ services.AddMvc()
 UiHintMetadataProvider facilitates automatic selecting a right Razor template for each complex type and this approach works against default Object Rzaor template, so you do need to decorate properties in your POCOs by UIHintAttribute.
 
 ### How to add an algorithm
-You need to follow the steps:
+You need to follow the steps.
 1. Wrap algorithm into your class inheriting AlgoBase<YourClass.Args>.
 1. Put it into [Algorithms/Implementation/ folder](./Algorithms/Implementation/).
 1. Inside of YourClass define a class for the input arguments as a POCO. In examples it is usually called Args.
@@ -40,7 +40,6 @@ You need to follow the steps:
         public sealed class Args
         {
             [Display(Name = "First Array")]
-            //[TypeConverter(typeof(SemicolonSeparatedArrayConvertor<int>))]
             public int[] A1 { get; set; } = EmptyArray;
 
             [Display(Name = "Second Array")]                                    
