@@ -17,7 +17,7 @@ CM.TypeDescriptor.AddAttributes(typeof(int[]), new CM.TypeConverterAttribute(typ
 Also, Razor templates to display arrays, matrixes and lists of arrays are in [Views/Shared/DisplayTemplates](./AlgoPuzzles/Views/Shared/DisplayTemplates/). They are matched to the types by means of [UiHintMetadataProvider](./AlgoPuzzles/Helpers/UiHintMetadataProvider.cs), which is plugged in at Startup.cs:
 ```csharp
 services.AddMvc()
-                .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new UiHintMetadataProvider())).
+	.AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new UiHintMetadataProvider()))
 ```
 
 UiHintMetadataProvider facilitates automatic selecting a right Razor template for each complex type and this approach works against default Object Rzaor template, so you do need to decorate properties in your POCOs by UIHintAttribute.
