@@ -45,7 +45,7 @@ namespace AlgoPuzzles.Controllers
         [HttpPost]
         public async Task<IActionResult> Execute([/*FromBody*/ FromForm] IFormCollection testCase, [FromRoute(Name = "id")] int algoIndex)
         {
-            var algo = _algos[ algoIndex ];            
+            var algo = _algos[ algoIndex ];
             
             var sample = Activator.CreateInstance(algo.ParamsType);
             bool status = await TryUpdateModelAsync(sample, algo.ParamsType, string.Empty);

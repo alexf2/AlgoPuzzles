@@ -81,6 +81,7 @@ namespace AlgoPuzzles
             CM.TypeDescriptor.AddAttributes(typeof(string[][]), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedArrayConvertor<string[]>)));
 
             CM.TypeDescriptor.AddAttributes(typeof(IList<int>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<int>)));
+            CM.TypeDescriptor.AddAttributes(typeof(IList<ulong>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<ulong>)));
             CM.TypeDescriptor.AddAttributes(typeof(IList<string>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<string>)));
             CM.TypeDescriptor.AddAttributes(typeof(IList<IList<int>>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<IList<int>>)));
             CM.TypeDescriptor.AddAttributes(typeof(IList<IList<string>>), new CM.TypeConverterAttribute(typeof(SemicolonSeparatedListConvertor<IList<string>>)));

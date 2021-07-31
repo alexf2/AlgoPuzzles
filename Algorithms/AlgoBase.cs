@@ -23,7 +23,7 @@ namespace Algorithms
 
         public abstract IEnumerable<T> TestSet
         {
-            get;        
+            get;
         }
 
         Task<dynamic> IAlgo.Execute(object input) => Execute((T)input);
