@@ -38,6 +38,13 @@ namespace AlgoPuzzles
             services.AddMvc()
                 .AddMvcOptions(m => m.ModelMetadataDetailsProviders.Add(new UiHintMetadataProvider()));
 
+            /*services.AddCors(options => 
+                options.AddPolicy("AllowCDN",
+                 builder =>
+                 {
+                     builder.WithMethods("GET").WithOrigins("http://ajax.aspnetcdn.com", "https://ajax.aspnetcdn.com", "http://cdnjs.cloudflare.com", "https://cdnjs.cloudflare.com");
+                 })
+            );*/
 
             /* Structure map */
             services.AddRequestScopingMiddleware(() => scopeProvider.Value = container.GetNestedContainer());
@@ -62,6 +69,7 @@ namespace AlgoPuzzles
             }
 
             app.UseStaticFiles();
+            // app.UseCors("AllowCDN");
 
             WebApiErrorHandlingMiddleware.UseWebApiJsonErrorResponse(app)       
                 .UseMvc(routes =>
